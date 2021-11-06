@@ -1,0 +1,5 @@
+Run Quickstart to create boilerplate source folder:
+    sphinx-quickstart
+
+Build sphinx document using:
+    sphinx-build -b html sourcedir builddir
