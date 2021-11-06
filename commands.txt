@@ -1,0 +1,14 @@
+Once you build your workbook, you have to upload it onto the server in the wordpress directory
+which will server your workbook to the users.
+
+wordpress data folder with learning material: /var/lib/docker/volumes/wordpress_wordpress_data/_data/learning/
+
+We can't directly upload to the learning materials folder since we don't have permissions to directly upload files onto the server.
+
+Therefore, we first upload the files to the server in a common directory: ~/wordpress/learning/
+Run: scp -r ./builds/session1/ projectvm01.cs.st-andrews.ac.uk:~/wordpress/learning/
+
+Zipping files before sending them is a good idea.
+
+Now on login to the server and copy the build folder at ~/wordpress/learning/session1/ to the wordpress_data folder:
+sudo cp -r ~/wordpress/learning/session1/ /var/lib/docker/volumes/wordpress_wordpress_data/_data/learning/
