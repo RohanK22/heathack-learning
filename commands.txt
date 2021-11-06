@@ -1,14 +1,41 @@
-Once you build your workbook, you have to upload it onto the server in the wordpress directory
-which will server your workbook to the users.
+Description: 
 
-wordpress data folder with learning material: /var/lib/docker/volumes/wordpress_wordpress_data/_data/learning/
+    builds - directory contains all the builds of sphinx workbooks.
+    source-template - starter template for building shphinx workbook.
+    sources - contains sphinx source folder for all the workbooks created and synced to the repo.
+    gitignore - tells git to not sync builds to the repo.
+    shphinx_commands.txt - basic shpinx commands to build shphinx source folders.
 
-We can't directly upload to the learning materials folder since we don't have permissions to directly upload files onto the server.
+BUILDING A NEW SPHINX WORKBOOK - https://www.sphinx-doc.org/en/master/usage/quickstart.html
+++++++++++++++++++++++++++++++
 
-Therefore, we first upload the files to the server in a common directory: ~/wordpress/learning/
-Run: scp -r ./builds/session1/ projectvm01.cs.st-andrews.ac.uk:~/wordpress/learning/
+    Make a copy of the source template by using command:
+        mv source-template ./sources/session<n>
+        or use command: "sphinx-quickstart" to get boilerplate workbook with default template.
+    
+    Modify the files inside ./sources/session<n>/ to create your workbook.
+    
+    Build the workbook after making changes using: 
+        sphinx-build -b html ./sources/session<n> ./builds/session<n>-build
 
-Zipping files before sending them is a good idea.
+    Preview the workbook by opening ./builds/session<n>-build/index.html in your web browser.
 
-Now on login to the server and copy the build folder at ~/wordpress/learning/session1/ to the wordpress_data folder:
-sudo cp -r ~/wordpress/learning/session1/ /var/lib/docker/volumes/wordpress_wordpress_data/_data/learning/
+    Go onto the next step to upload your workbook onto the server.
+
+UPLOADING workbook to server
+++++++++++++++++++++++++++++
+
+    Once you build your workbook, you have to upload it onto the server in the wordpress directory
+    which will server your workbook to the users.
+
+    wordpress data folder with learning material: /var/lib/docker/volumes/wordpress_wordpress_data/_data/learning/
+
+    We can't directly upload to the learning materials folder since we don't have permissions to directly upload files onto the server.
+
+    Therefore, we first upload the files to the server in a common directory: ~/wordpress/learning/
+    Run: scp -r ./builds/session1/ projectvm01.cs.st-andrews.ac.uk:~/wordpress/learning/
+
+    Zipping files before sending them is a good idea.
+
+    Now on login to the server and copy the build folder at ~/wordpress/learning/session1/ to the wordpress_data folder:
+    sudo cp -r ~/wordpress/learning/session1/ /var/lib/docker/volumes/wordpress_wordpress_data/_data/learning/
